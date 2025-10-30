@@ -141,7 +141,6 @@ h1 {
   margin-top: 1.5rem;
 }
 
-/* 🌟 Top Bar */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -186,7 +185,6 @@ h1 {
   border-color: #4b6cb7;
 }
 
-/* 🌟 Favorites Sidebar (fully hidden when closed) */
 .sidebar {
   position: fixed;
   top: 0;
@@ -241,7 +239,6 @@ h1 {
   width: 100%;
 }
 
-/* 🌫 Overlay when sidebar is open */
 .overlay {
   position: fixed;
   top: 0;
@@ -252,7 +249,6 @@ h1 {
   z-index: 900;
 }
 
-/* ❤️ Favorites Button in Header */
 .fav-btn {
   background: #4b6cb7;
   color: white;
@@ -269,9 +265,59 @@ h1 {
   background: #3a5ca0;
 }
 
-/* Adjustments for smaller screens */
 @media (max-width: 600px) {
   .sidebar {
     width: 85%;
+  }
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  .search-bar button {
+    width: 100%;
+  }
+
+  .book-list {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .book-card {
+    width: 100%;
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 900px) {
+  .book-list {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 2–3 cards per row */
+    gap: 1.8rem;
+  }
+
+  .book-card {
+    width: 200px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .book-list {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* more breathing room */
+    gap: 2.5rem;
+  }
+
+  .book-card {
+    width: 240px;
   }
 }
