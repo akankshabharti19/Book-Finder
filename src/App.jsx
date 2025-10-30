@@ -25,10 +25,10 @@ function App() {
     setError("");
     try {
       const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}`
+        `https://openlibrary.org/search.json?title=${encodeURIComponent(query)}`
       );
       const data = await res.json();
-      setBooks(data.items || []);
+      setBooks(data.docs || []);
     } catch (err) {
       setError("Something went wrong. Please try again later.");
     } finally {
@@ -37,9 +37,9 @@ function App() {
   };
 
   const toggleFavorite = (book) => {
-    const exists = favorites.find((fav) => fav.id === book.id);
+    const exists = favorites.find((fav) => fav.key === book.key);
     if (exists) {
-      setFavorites(favorites.filter((fav) => fav.id !== book.id));
+      setFavorites(favorites.filter((fav) => fav.key !== book.key));
     } else {
       setFavorites([...favorites, book]);
     }
@@ -75,10 +75,10 @@ function App() {
           <div className="book-list">
             {books.map((book) => (
               <BookCard
-                key={book.id}
-                book={book.volumeInfo}
+                key={book.key}
+                book={book}
                 onFavorite={() => toggleFavorite(book)}
-                isFavorite={favorites.some((fav) => fav.id === book.id)}
+                isFavorite={favorites.some((fav) => fav.key === book.key)}
               />
             ))}
           </div>
@@ -102,8 +102,8 @@ function App() {
           <div className="sidebar-list">
             {favorites.map((book) => (
               <BookCard
-                key={book.id}
-                book={book.volumeInfo}
+                key={book.key}
+                book={book}
                 onFavorite={() => toggleFavorite(book)}
                 isFavorite={true}
               />
