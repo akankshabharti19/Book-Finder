@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import BookCard from "./components/BookCard";
 import "./index.css";
@@ -10,13 +10,11 @@ function App() {
   const [error, setError] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Load favorites from local storage
   useEffect(() => {
     const favs = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(favs);
   }, []);
 
-  // Save favorites whenever they change
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);

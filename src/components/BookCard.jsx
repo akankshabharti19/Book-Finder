@@ -1,5 +1,3 @@
-import React from "react";
-
 function BookCard({ book, onFavorite, isFavorite }) {
   const { title, authors, imageLinks, infoLink } = book;
 
