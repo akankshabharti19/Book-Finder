@@ -1,16 +1,13 @@
-# React + Vite
+Book Finder - A simple and elegant React application that lets users search for books using the Google Books API, view details, and save their favorite books locally.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features:
+Book Search - Search for books by title, author, or keyword.  
+Responsive UI - Clean and modern design with smooth hover effects.  
+Favorites System  - Save and manage favorite books using local storage.  
+Error & Loading States - Graceful user feedback while fetching data.  
+No Tailwind CSS - Built purely with plain CSS for easy portability.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tech Stack:
+React + Vite
+Google Books API
+HTML + CSS
