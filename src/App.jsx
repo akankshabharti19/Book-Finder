@@ -24,11 +24,12 @@ function App() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(
-        `https://openlibrary.org/search.json?title=${encodeURIComponent(query)}`
-      );
-      const data = await res.json();
-      setBooks(data.docs || []);
+    const res = await fetch(
+      `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`
+    );
+    const data = await res.json();
+    setBooks(data.items || []);
+
     } catch (err) {
       setError("Something went wrong. Please try again later.");
     } finally {
@@ -37,13 +38,21 @@ function App() {
   };
 
   const toggleFavorite = (book) => {
-    const exists = favorites.find((fav) => fav.key === book.key);
-    if (exists) {
-      setFavorites(favorites.filter((fav) => fav.key !== book.key));
-    } else {
-      setFavorites([...favorites, book]);
-    }
+    setFavorites((prevFavorites) => {
+      const exists = prevFavorites.find(
+        (fav) => fav.id === book.id
+      );
+
+      if (exists) {
+        return prevFavorites.filter(
+          (fav) => fav.id !== book.id
+        );
+      } else {
+        return [...prevFavorites, book];
+      }
+    });
   };
+
 
   return (
     <div className="app">
