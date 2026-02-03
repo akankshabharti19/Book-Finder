@@ -73,15 +73,19 @@ h1 {
 
 .book-card {
   background-color: white;
-  border-radius: 12px;
-  padding: 1.2rem;
+  border-radius: 14px;
+  padding: 16px;
   width: 220px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .book-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
+  transition: transform 0.2s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
@@ -94,16 +98,16 @@ h1 {
 
 .book-card h3 {
   font-size: 1rem;
-  margin: 0.8rem 0 0.3rem;
+  margin: 8px 0 4px;
   color: #2c3e50;
   line-height: 1.2;
-  min-height: 2.4em;
+  min-height: 44px;
 }
 
 .book-card p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #7f8c8d;
-  margin-bottom: 0.8rem;
+  margin-bottom: 12px;
 }
 
 .card-actions {
@@ -320,4 +324,43 @@ h1 {
   .book-card {
     width: 240px;
   }
+}
+
+.book-cover {
+  width: 140px;
+  height: 210px;
+  margin: 0 auto 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e6edf5, #f4f7fb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 10px;
+}
+
+.book-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.book-card:hover .book-cover {
+  transform: scale(1.03);
+  transition: transform 0.2s ease;
 }

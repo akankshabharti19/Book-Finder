@@ -9,6 +9,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const favs = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -19,23 +21,44 @@ function App() {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
+    useEffect(() => {
+    if (query.trim() === "") {
+      setBooks([]);
+      setHasSearched(false);
+      setError("");
+    }
+  }, [query]);
+
   const handleSearch = async (query) => {
-    if (!query) return;
+    if (!query || !query.trim()) return;
+
+    setHasSearched(true);
+    setBooks([]);
     setLoading(true);
     setError("");
-    try {
-    const res = await fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`
-    );
-    const data = await res.json();
-    setBooks(data.items || []);
 
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=intitle:${encodeURIComponent(
+          query
+        )}&printType=books&maxResults=20`
+      );
+
+      const data = await response.json();
+
+      //console.log("RAW API DATA:", data);
+      //console.log("ITEMS:", data.items);
+
+      setBooks(data.items || []);
     } catch (err) {
-      setError("Something went wrong. Please try again later.");
+      console.error(err);
+      setError("Something went wrong. Please try again.");
+      setBooks([]);
     } finally {
       setLoading(false);
     }
   };
+
 
   const toggleFavorite = (book) => {
     setFavorites((prevFavorites) => {
@@ -68,14 +91,27 @@ function App() {
       </header>
 
       {/* Search Section */}
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar
+        query={query}
+        setQuery={setQuery}
+        onSearch={handleSearch}
+      />
+      {!hasSearched && !loading && (
+        <p className="empty-state">
+          Start typing to discover books 📖
+        </p>
+      )}
+
+      {hasSearched && !loading && books.length === 0 && !error &&  (
+        <p>
+          No books found. Try a different keyword.
+        </p>
+      )}
 
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
 
-      {!loading && books.length === 0 && !error && (
-        <p className="no-results">Search for books to see results</p>
-      )}
+
 
       {/* Search Results */}
       {!loading && books.length > 0 && (
@@ -84,10 +120,10 @@ function App() {
           <div className="book-list">
             {books.map((book) => (
               <BookCard
-                key={book.key}
+                key={book.id}
                 book={book}
                 onFavorite={() => toggleFavorite(book)}
-                isFavorite={favorites.some((fav) => fav.key === book.key)}
+                isFavorite={favorites.some((fav) => fav.id === book.id)}
               />
             ))}
           </div>
@@ -111,7 +147,7 @@ function App() {
           <div className="sidebar-list">
             {favorites.map((book) => (
               <BookCard
-                key={book.key}
+                key={book.id}
                 book={book}
                 onFavorite={() => toggleFavorite(book)}
                 isFavorite={true}
